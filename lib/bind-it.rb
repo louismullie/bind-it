@@ -1,4 +1,7 @@
+# BindIt is a tool to facilitate the creation of Java bindings in Ruby.
 module BindIt
+  
+  # This is the module your namespace should extend.
   module Binding
 
     VERSION = '0.0.1'
@@ -9,41 +12,44 @@ module BindIt
 
     def self.extended(base)
       super(base)
+      # Create configuration options.
       base.module_eval do
         class << self
-          # Whether the bindings are initialized or not.
-          attr_accessor :initialized
-          # The default path to look into for JARs.
+          # Are the default JARs/classes loaded?
+          attr_accessor :bound
+          # The default path to look in for JARs.
           attr_accessor :jar_path
           # The flags for starting the JVM machine.
           attr_accessor :jvm_args
           # A file to redirect JVM output to.
           attr_accessor :log_file
-          # The default JARs to load before anything.
+          # The default JARs to load.
           attr_accessor :default_jars
-          # The default namespace to search for classes.
+          # The default Java namespace to 
+          # search in for classes.
           attr_accessor :default_namespace
           # The default classes to load.
           attr_accessor :default_classes
         end
+        # Set default values.
         self.jar_path = ''
         self.jvm_args = []
         self.log_file = nil
         self.default_namespace = 'java'
         self.default_classes = []
-        self.initialized = false
+        self.bound = false
       end
     end
 
     # Load the default JARs and classes.
-    def init  
-      unless self.initialized
+    def bind
+      unless self.bound
         BindIt::JarLoader.log_file = self.log_file
         BindIt::JarLoader.jvm_args = self.jvm_args
         self.load_default_jars
         self.load_default_classes
       end
-      self.initialized = true
+      self.bound = true
     end
 
     # Load a JAR file.
@@ -61,11 +67,11 @@ module BindIt
     end
 
     # Public function to load classes inside
-    # the namespace. Make sure the default
-    # JARs and classes are loaded before.
+    # the namespace. Makes sure the default
+    # JARs are loaded before.
     def load_class(klass, base = nil, rename = nil)
       base ||= self.default_namespace
-      self.init unless self.initialized
+      self.load unless self.bound
       self.load_klass(klass, base, rename)
     end
     
@@ -94,7 +100,6 @@ module BindIt
       end.gsub('_', '')
     end
     
-
   end
 
 end
