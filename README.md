@@ -26,20 +26,23 @@ module MyBindings
 
   extend BindIt::Binding
 
-  # The path in which to look for JAR files.
-  self.jar_path = '/path/to/jars/'
-
   # Arguments to use when initializing the JVM.
   self.jvm_args = ['-option1X', '-option2X']
 
   # If set, JVM output is redirected to file.
   self.log_file = 'log_file.txt'
 
+  # The path in which to look for JAR files.
+  self.jar_path = '/path/to/jars/'
+
   # Default JAR files to load.
   self.default_jars = [
     'jar1.jar',
     'jar2.jar'
   ]
+
+  # Default namespace to use when loading classes.
+  self.default_namespace = 'path.to.default'
 
   # Default classes to load under MyBindings.
   # Shown are the three different ways of adding
@@ -52,9 +55,6 @@ module MyBindings
      # Rename the Java class in Ruby.
      ['MyClass', 'path.to.namespace', 'MyClass2']
   ]
-
-  # Default namespace to use.
-  self.default_namespace = 'edu.stanford.nlp.pipeline'
 
   # Load the default JARs and classes.
   self.bind

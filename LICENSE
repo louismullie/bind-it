@@ -1,4 +1,4 @@
-BindIt Ruby Gem
+== BindIt Ruby Gem
 BindIt is a tool to facilitate the creation of Java bindings in Ruby.
 
 This program is free software: you can redistribute it and/or modify
