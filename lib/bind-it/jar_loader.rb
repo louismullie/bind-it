@@ -10,6 +10,7 @@ module BindIt
       attr_accessor :log_file
     end
     
+    # Default configuration options.
     self.jvm_args = []
     self.log_file = nil
       
@@ -30,7 +31,7 @@ module BindIt
       System.setErr(ps)
     end
     
-    # Load a jar.
+    # Load a JAR through Rjb.
     def self.load(jar, path)
       self.init unless ::Rjb::loaded?
       jar = path + jar
