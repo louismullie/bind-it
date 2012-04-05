@@ -12,7 +12,7 @@ BindIt uses the Ruby-Java-Bridge (Rjb) to access Java objects. It runs on Ruby 1
 
 1. Create a module into which Java classes will be loaded.
 2. Make sure that module extends `BindIt::Binding`.
-3. Set some configuration options (see example below).
+3. Set your configuration options (see examples below).
 4. Run YourModule.bind to load the default JARs and classes.
 5. Access loaded Java classes using YourModule::YourClass.
 
