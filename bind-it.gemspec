@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = %q{ BindIt is a thin wrapper over the Ruby-Java-Bridge (Rjb) to facilitate the creation of Java bindings in Ruby. }
   
   # Add all files.
-  s.files = Dir['lib/**/*'] + Dir['bin/**/*'] + ['README.markdown', 'LICENSE']
+  s.files = Dir['lib/**/*'] + Dir['bin/**/*'] + ['README.md', 'LICENSE']
   
   # Runtime dependencies
   s.add_runtime_dependency 'rjb'
