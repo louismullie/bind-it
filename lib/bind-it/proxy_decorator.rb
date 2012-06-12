@@ -5,9 +5,13 @@ module BindIt
   Rjb::Rjb_JavaProxy.class_eval do
 
     # Dynamically defined on all proxied Java objects.
-    # Shorthand for to_string defined by Java classes.
+    # Shorthand for toString() defined by Java classes.
     def to_s; to_string; end
-
+    
+    # Dynamically defined on all proxied Java objects.
+    # Shorthand for toArray() defined by Java classes.
+    def to_a; to_array; end
+    
     # Dynamically defined on all proxied Java iterators.
     # Provide Ruby-style iterators to wrap Java iterators.
     def each
