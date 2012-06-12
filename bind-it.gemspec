@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*'] + Dir['bin/**/*'] + ['README.md', 'LICENSE']
   
   # Runtime dependencies
-  s.add_runtime_dependency 'rjb'
+  s.add_runtime_dependency 'rjb', '1.3.9'
     
 end
