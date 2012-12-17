@@ -33,6 +33,16 @@ module BindIt
     
     # Load a JAR through Rjb.
     def self.load(jar, path)
+      RUBY_PLATFORM =~ /java/ ? 
+      load_jruby(jar,path) : 
+      load_rjb(jar,path)
+    end
+    
+    def self.load_jruby(jar, path)
+      require path + jar
+    end
+    
+    def self.load_rjb(jar,path)
       self.init unless ::Rjb::loaded?
       jar = path + jar
       if !::File.readable?(jar)
@@ -40,7 +50,6 @@ module BindIt
       end
       ::Rjb::add_jar(jar)
     end
-    
   end
   
 end

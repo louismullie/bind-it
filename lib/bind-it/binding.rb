@@ -8,8 +8,8 @@ module BindIt
     require 'rjb'
     require 'bind-it/jar_loader'
     require 'bind-it/proxy_decorator'
-
-    def self.extended(base)
+    
+   def self.extended(base)
       super(base)
       # Create configuration options.
       base.module_eval do
@@ -40,6 +40,8 @@ module BindIt
       end
     end
 
+    ######
+    
     # Load the default JARs and classes.
     def bind
       unless self.bound
@@ -83,13 +85,23 @@ module BindIt
       end
     end
     
+    private
+    
     # Private function to load classes.
     # Doesn't check if initialized.
     def load_klass(klass, base, name = nil)
       base += '.' unless base == ''
       name ||= klass
-      const_set(name.intern,
-      Rjb::import("#{base}#{klass}"))
+      fqcn = "#{base}#{klass}"
+      java_class = nil
+      if RUBY_PLATFORM =~ /java/
+        java_import(fqcn)
+        include_package(base)
+        java_class = module_eval("Java::#{camel_case(clazz[1])}.#{clazz[0]}")
+      else
+        java_class = Rjb::import(fqcn)
+      end
+      const_set(name.intern, java_class)
     end
     
     # Utility function to CamelCase names.
