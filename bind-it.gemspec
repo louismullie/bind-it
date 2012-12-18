@@ -16,6 +16,11 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*'] + Dir['bin/**/*'] + ['README.md', 'LICENSE']
   
   # Runtime dependencies
-  s.add_runtime_dependency 'rjb', '1.3.9'
-    
+  
+  if RUBY_PLATFORM =~ /java/
+    s.platform = 'java'
+  else
+    s.add_runtime_dependency 'rjb'
+  end
+      
 end
