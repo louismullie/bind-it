@@ -15,8 +15,7 @@ Gem::Specification.new do |s|
   # Add all files.
   s.files = Dir['lib/**/*'] + Dir['bin/**/*'] + ['README.md', 'LICENSE']
   
-  # Runtime dependencies
-  
+  # Runtime dependencies.
   if RUBY_PLATFORM =~ /java/
     s.platform = 'java'
   else
