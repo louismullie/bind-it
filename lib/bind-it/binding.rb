@@ -5,9 +5,16 @@ module BindIt
 
     VERSION = '0.0.1'
 
-    require 'rjb'
+    if RUBY_PLATFORM =~ /java/
+      require 'java'
+      # require 'bind-it/jruby_proxy'
+    else
+      require 'rjb'
+      require 'bind-it/rjb_proxy'
+    end
+
     require 'bind-it/jar_loader'
-    require 'bind-it/proxy_decorator'
+    
     
    def self.extended(base)
       super(base)
@@ -85,23 +92,23 @@ module BindIt
       end
     end
     
-    private
+    protected
     
     # Private function to load classes.
     # Doesn't check if initialized.
-    def load_klass(klass, base, name = nil)
+    def load_klass(klass, base, name=nil)
       base += '.' unless base == ''
-      name ||= klass
       fqcn = "#{base}#{klass}"
-      java_class = nil
+      name ||= klass
       if RUBY_PLATFORM =~ /java/
-        java_import(fqcn)
-        include_package(base)
-        java_class = module_eval("Java::#{camel_case(clazz[1])}.#{clazz[0]}")
+        rb_class = java_import(fqcn)
+        if name != klass
+          const_set(name.intern, rb_class)
+        end
       else
-        java_class = Rjb::import(fqcn)
+        rb_class = Rjb::import(fqcn)
+        const_set(name.intern, rb_class)
       end
-      const_set(name.intern, java_class)
     end
     
     # Utility function to CamelCase names.
