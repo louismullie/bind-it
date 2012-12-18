@@ -1,6 +1,6 @@
 **About**
   
-BindIt is a very simple tool to facilitate the creation of Java bindings in Ruby. It provides a simplified interface to load JARs and Java classes, and allows logging of JVM output to a text file. It also enhances the Rjb Java proxy with useful functions, such as internal iterators.
+BindIt is a very simple tool that allows to make Ruby bindings to Java packages that work both on JRuby and MRI platforms. It provides a simplified interface to load JARs and Java classes, and allows logging of JVM output to a text file.
 
 BindIt uses the Ruby-Java-Bridge (Rjb) to access Java objects. It runs on Ruby 1.9.2 and 1.9.3.
 
