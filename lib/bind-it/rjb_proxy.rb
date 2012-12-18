@@ -1,4 +1,4 @@
-module BindIt
+module BindIt::RjbProxy
 
   # Modify the Rjb JavaProxy class to add our own 
   # methods to every proxied Java object.
