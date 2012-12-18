@@ -13,43 +13,56 @@ module BindIt
     # Default configuration options.
     self.jvm_args = []
     self.log_file = nil
-      
-    # Load Rjb and create Java VM.
-    def self.init
-      ::Rjb::load(nil, self.jvm_args)
-      set_java_logging if self.log_file
-    end
-    
-    # Redirect the output of the JVM to log.
-    def self.set_java_logging
-      const_set(:System, Rjb::import('java.lang.System'))
-      const_set(:PrintStream, Rjb::import('java.io.PrintStream'))
-      const_set(:File2, Rjb::import('java.io.File'))
-      ps = PrintStream.new(File2.new(self.log_file))
-      ps.write(::Time.now.strftime("[%m/%d/%Y at %I:%M%p]\n\n"))
-      System.setOut(ps)
-      System.setErr(ps)
-    end
-    
-    # Load a JAR through Rjb.
+  
+    # Load a JAR through Jruby/Rjb.
     def self.load(jar, path)
-      RUBY_PLATFORM =~ /java/ ? 
-      load_jruby(jar,path) : 
-      load_rjb(jar,path)
+      if !::File.readable?(path + jar)
+        raise "Could not find JAR file (looking in #{jar})."
+      end
+      if RUBY_PLATFORM =~ /java/
+        set_java_logging if self.log_file
+        load_jar_jruby(jar,path)
+      else
+        load_jar_rjb(jar,path)
+      end
     end
     
-    def self.load_jruby(jar, path)
+    # Load a Jruby jar.
+    def self.load_jar_jruby(jar, path)
       require path + jar
     end
     
-    def self.load_rjb(jar,path)
-      self.init unless ::Rjb::loaded?
+    # Laad an Rjb jar.
+    def self.load_jar_rjb(jar,path)
+      self.init_rjb unless ::Rjb::loaded?
       jar = path + jar
-      if !::File.readable?(jar)
-        raise "Could not find JAR file (looking in #{jar})."
-      end
       ::Rjb::add_jar(jar)
     end
+    
+    # Load Rjb and create Java VM.
+    def self.init_rjb
+      ::Rjb::load(nil, self.jvm_args)
+      set_java_logging if self.log_file
+    end
+
+    # Redirect the output of the JVM to log.
+    def self.set_java_logging
+      system, print_stream, file = nil, nil, nil
+      if RUBY_PLATFORM =~ /java/
+        system = java.lang.System
+        print_stream = java.io.PrintStream
+        file = java.io.File
+      else
+        system = Rjb::import('java.lang.System')
+        print_stream = Rjb::import('java.io.PrintStream')
+        file = Rjb::import('java.io.File')
+      end
+      ps = print_stream.new(file.new(self.log_file))
+      ps.write(::Time.now.strftime("[%m/%d/%Y at %I:%M%p]\n\n"))
+      system.setOut(ps)
+      system.setErr(ps)
+    end
+
   end
   
 end
