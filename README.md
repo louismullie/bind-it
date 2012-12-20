@@ -2,7 +2,7 @@
   
 BindIt is a tool that allows to build platform-agnostic Ruby wrappers for JAVA code. The resulting bindings will work both on the JRuby and MRI platforms. On the MRI platform, BindIt uses the Ruby-Java-Bridge (Rjb) to access Java objects. 
 
-BindIt is tested on MRI Ruby 1.9.2 and 1.9.3, as well as JRuby 1.7.1.
+BindIt is tested on MRI Ruby 1.9.2 and 1.9.3, as well as JRuby 1.6.7.2 and 1.7.1.
 
 **Installing**
 
