@@ -3,8 +3,6 @@ module BindIt
   # This is the module your namespace should extend.
   module Binding
 
-    VERSION = '0.0.1'
-
     if RUBY_PLATFORM =~ /java/
       require 'java'
       # require 'bind-it/jruby_proxy'
@@ -103,6 +101,9 @@ module BindIt
       if RUBY_PLATFORM =~ /java/
         rb_class = java_import(fqcn)
         if name != klass
+          if rb_class.is_a?(Array)
+            rb_class = rb_class.first
+          end
           const_set(name.intern, rb_class)
         end
       else
