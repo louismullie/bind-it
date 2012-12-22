@@ -1,3 +1,3 @@
 source :rubygems
 
-gem 'rjb'
+gemspec
