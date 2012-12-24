@@ -77,7 +77,7 @@ module BindIt
     # JARs are loaded before.
     def load_class(klass, base = nil, rename = nil)
       base ||= self.default_namespace
-      self.load unless self.bound
+      self.bind unless self.bound
       self.load_klass(klass, base, rename)
     end
     
