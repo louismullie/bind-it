@@ -17,7 +17,8 @@ module BindIt
     # Load a JAR through Jruby/Rjb.
     def self.load(jar, path)
       if !::File.readable?(path + jar)
-        raise "Could not find JAR file (looking in #{jar})."
+        raise "Could not find JAR file " +
+        "(looking in #{path}#{jar})."
       end
       if RUBY_PLATFORM =~ /java/
         set_java_logging if self.log_file
