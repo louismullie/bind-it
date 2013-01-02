@@ -51,8 +51,6 @@ module MyBindings
      # Will search for class in default_namespace.
      ['MyClass'],
      # Supply a non-default namespace.
-     ['MyClass', 'path.to.namespace'],
-     # Rename the Java class in Ruby.
      ['MyClass', 'path.to.namespace']
   ]
 
