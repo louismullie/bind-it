@@ -53,7 +53,7 @@ module MyBindings
      # Supply a non-default namespace.
      ['MyClass', 'path.to.namespace'],
      # Rename the Java class in Ruby.
-     ['MyClass', 'path.to.namespace', 'MyClass2']
+     ['MyClass', 'path.to.namespace']
   ]
 
   # Load the default JARs and classes.
