@@ -28,6 +28,9 @@ module BindIt::RjbProxy
     # Bug fix for Rjb, which sometimes fails to 
     # un-camel-case methods in the method_missing handler.
     def method_missing(sym, *args, &block)
+      if [:to_int, :to_hash, :to_path, :to_str, :to_ary].include?(sym)
+        super(sym, *args, &block)
+      end
       sym = sym.to_s.gsub(/^[a-z]|_[a-z]/) do |a|
         a.upcase
       end.gsub('_', '').tap { |s| s[0] = s[0].downcase }
