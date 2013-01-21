@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   if RUBY_PLATFORM =~ /java/
     s.platform = 'java'
   else
-    s.add_runtime_dependency 'rjb'
+    s.add_runtime_dependency 'rjb', '~>1.4.3'
   end
       
 end
