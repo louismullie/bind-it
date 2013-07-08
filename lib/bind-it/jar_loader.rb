@@ -59,8 +59,8 @@ module BindIt
         file = Rjb::import('java.io.File')
       end
       ps = print_stream.new(file.new(self.log_file))
-      ps.write(::Time.now.strftime("[%m/%d/%Y at %I:%M%p]\n\n"))
-      system.setOut(ps)
+      # ps.write(::Time.now.strftime("[%m/%d/%Y at %I:%M%p]\n\n"))
+      # system.setOut(ps)
       system.setErr(ps)
     end
 
