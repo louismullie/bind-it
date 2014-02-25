@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    bind-it (0.2.7)
+      rjb (= 1.4.3)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rjb (1.4.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bind-it!

@@ -65,4 +65,7 @@ obj = MyBindings::MyClass.new
 
 **Contributing**
 
+  gem install rjb -v 1.4.3
+  bundle
+
 Feel free to fork the project and send me a pull request!
